@@ -61,6 +61,17 @@ def update_book(db: Session, book_id: int, title: str = None, description: str =
     db.commit()
     db.refresh(book)
     return book
+    
+def update_category(db: Session, category_id: int, new_title: str):
+
+    category = db.query(models.Category).filter(models.Category.id == category_id).first()
+    if not category:
+        return None
+    category.title = new_title
+    db.commit()
+    db.refresh(category)
+    return category   
+    
 
 def delete_book(db: Session, book_id: int):
     book = get_book(db, book_id)
